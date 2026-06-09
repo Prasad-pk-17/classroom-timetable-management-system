@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.page-wrapper {
+    padding: 40px 0;
+}
+
+.card-container {
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.card-custom {
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.card-title {
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #0b3d91;
+}
+
+.warning-text {
+    text-align: center;
+    color: #dc2626;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.table-custom {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.table-custom th {
+    background: #0b3d91;
+    color: white;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.table-custom td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.table-custom tr:hover {
+    background: #f1f5f9;
+}
+
+.checkbox-cell {
+    width: 70px;
+}
+
+.btn-danger {
+    background: #dc2626;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.btn-danger:hover {
+    background: #b91c1c;
+}
+
+.btn-secondary {
+    background: #64748b;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 15px;
+}
+</style>
+
+<div class="page-wrapper">
+    <div class="card-container">
+
+        <div class="card-custom">
+
+            <h2 class="card-title">🗑️ Delete Subjects</h2>
+            <p class="warning-text">⚠ Select the subjects carefully. This action cannot be undone.</p>
+
+            <form method="POST">
+
+                <table class="table-custom">
+                    <thead>
+                        <tr>
+                            <th class="checkbox-cell">
+                                <input type="checkbox" onclick="toggleAll(this)">
+                            </th>
+                            <th>ID</th>
+                            <th>Subject Name</th>
+                            <th>Semester</th>
+                            <th>Faculty</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for s in subjects %}
+                        <tr>
+                            <td>
+                                <input type="checkbox"
+                                       name="delete_ids"
+                                       value="{{ s[0] }}">
+                            </td>
+                            <td>{{ s[0] }}</td>
+                            <td>{{ s[1] }}</td>
+                            <td>{{ s[2] }}</td>
+                            <td>{{ s[3] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <button type="submit" class="btn-danger">
+                    Delete Selected Subjects
+                </button>
+
+            </form>
+
+            <div style="text-align:center;">
+                <a href="{{ url_for('view_subjects') }}"
+                   class="btn-secondary">
+                    ⬅ Back
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+function toggleAll(source) {
+    checkboxes = document.getElementsByName('delete_ids');
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = source.checked;
+    }
+}
+</script>
+
+{% endblock %}

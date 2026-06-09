@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{% block title %}Vivekanand College ERP{% endblock %}</title>
+
+<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+<style>
+
+/* ===== BODY ===== */
+
+body{
+margin:0;
+padding:0;
+font-family: Arial, sans-serif;
+}
+
+/* ===== SIDEBAR ===== */
+
+.sidebar{
+position:fixed;
+top:0;
+left:0;
+height:100%;
+width:230px;
+background:#1f2d3d;
+padding-top:20px;
+}
+
+.sidebar h4{
+color:white;
+text-align:center;
+margin-bottom:30px;
+}
+
+.sidebar a{
+display:block;
+color:#c2c7d0;
+padding:12px 20px;
+text-decoration:none;
+transition:0.3s;
+}
+
+.sidebar a:hover{
+background:#007bff;
+color:white;
+}
+
+/* ===== CONTENT AREA ===== */
+
+.content{
+margin-left:230px;
+padding:25px;
+min-height:100vh;
+
+background-image:url("/static/images/image.png");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+/* ===== HEADER STYLE (OPTIONAL) ===== */
+
+.dashboard-header{
+background: rgba(255,255,255,0.85);
+padding:20px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.dashboard-title{
+font-size:40px;
+font-weight:bold;
+color:#0d3b66;
+}
+
+.dashboard-subtitle{
+font-size:18px;
+color:#333;
+}
+
+/* ===== GLASS CARDS ===== */
+
+.card{
+border-radius:10px;
+background: rgba(255,255,255,0.92);
+backdrop-filter: blur(6px);
+}
+
+/* ===== FOOTER ===== */
+
+.footer{
+text-align:center;
+padding:12px;
+margin-top:40px;
+
+background: rgba(0,0,0,0.7);
+color:white;
+border-radius:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h4>🏫 Dashboard</h4>
+
+<a href="{{ url_for('dashboard') }}">Dashboard</a>
+
+<a href="{{ url_for('view_classrooms') }}">Classrooms</a>
+
+<a href="{{ url_for('view_subjects') }}">Subjects</a>
+
+<a href="{{ url_for('view_timeslots') }}">Timeslots</a>
+
+<hr style="color:#444">
+
+<a href="{{ url_for('add_classroom') }}">➕ Add Classroom</a>
+
+<a href="{{ url_for('add_subject') }}">➕ Add Subject</a>
+
+<a href="{{ url_for('add_timeslot') }}">➕ Add Timeslot</a>
+
+<hr style="color:#444">
+
+<a href="{{ url_for('logout') }}">🚪 Logout</a>
+
+</div>
+
+
+<!-- MAIN CONTENT -->
+
+<div class="content">
+
+{% block content %}{% endblock %}
+
+<footer class="footer">
+© 2026 Vivekanand College ERP System
+</footer>
+
+</div>
+
+</body>
+</html>

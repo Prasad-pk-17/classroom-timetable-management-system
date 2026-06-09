@@ -1,0 +1,402 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* ===== DASHBOARD HEADER ===== */
+
+.system-title{
+font-size:42px;
+font-weight:700;
+color:#2b2b2b;
+letter-spacing:1px;
+margin-bottom:5px;
+animation:fadeDown 0.8s ease;
+}
+
+.dashboard-sub{
+font-size:18px;
+color:#333;
+margin-bottom:35px;
+font-weight:500;
+position:relative;
+}
+
+.dashboard-sub::after{
+content:"";
+display:block;
+width:120px;
+height:4px;
+background:#2f6bd2;
+margin-top:8px;
+border-radius:5px;
+}
+
+/* animation */
+
+@keyframes fadeDown{
+from{
+opacity:0;
+transform:translateY(-20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* ===== STAT CARDS ===== */
+
+.stat-card{
+
+background: rgba(255,255,255,0.92);
+backdrop-filter: blur(8px);
+
+border-radius:15px;
+
+padding:25px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.25);
+
+transition:0.3s;
+
+}
+
+.stat-card:hover{
+
+transform:translateY(-10px);
+
+box-shadow:0 20px 40px rgba(0,0,0,0.35);
+
+}
+
+.stat-title{
+font-size:18px;
+color:#555;
+}
+
+.stat-number{
+font-size:42px;
+font-weight:bold;
+color:#2c5aa0;
+}
+
+/* ===== ACADEMIC SERVICES ===== */
+
+.service-box{
+
+background: rgba(255,255,255,0.92);
+backdrop-filter: blur(8px);
+
+padding:25px;
+
+border-radius:15px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.25);
+
+margin-top:25px;
+
+}
+
+.service-title{
+
+font-size:22px;
+color:#2c5aa0;
+font-weight:700;
+
+margin-bottom:20px;
+
+}
+
+/* GRID */
+
+.service-grid{
+
+display:grid;
+
+grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+
+gap:18px;
+
+}
+
+/* SERVICE CARD */
+
+.service-card{
+
+background:white;
+
+border-radius:12px;
+
+padding:22px;
+
+text-align:center;
+
+text-decoration:none;
+
+transition:0.3s;
+
+box-shadow:0 6px 20px rgba(0,0,0,0.15);
+
+}
+
+.service-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:0 12px 30px rgba(0,0,0,0.25);
+
+background:linear-gradient(135deg,#4facfe,#00f2fe);
+
+}
+
+.service-icon{
+
+font-size:30px;
+
+margin-bottom:10px;
+
+}
+
+.service-text{
+
+font-weight:600;
+
+color:#2c5aa0;
+
+font-size:15px;
+
+}
+
+.service-card:hover .service-text{
+
+color:white;
+
+}
+
+/* ===== TIMETABLE BOX ===== */
+
+.timetable-box{
+
+background: rgba(255,255,255,0.92);
+
+backdrop-filter: blur(8px);
+
+padding:25px;
+
+border-radius:15px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.25);
+
+margin-top:25px;
+
+max-width:450px;
+
+}
+
+.generate-btn{
+
+background: linear-gradient(135deg,#2f6bd2,#1f4fa3);
+
+border:none;
+
+padding:12px;
+
+border-radius:10px;
+
+color:white;
+
+width:100%;
+
+font-weight:bold;
+
+margin-top:10px;
+
+transition:0.3s;
+
+}
+
+.generate-btn:hover{
+
+transform:scale(1.03);
+
+box-shadow:0 8px 20px rgba(0,0,0,0.35);
+
+}
+
+.view-btn{
+
+background:#eee;
+
+border:none;
+
+padding:10px;
+
+border-radius:10px;
+
+width:100%;
+
+margin-top:10px;
+
+transition:0.3s;
+
+}
+
+.view-btn:hover{
+
+background:#ddd;
+
+}
+
+</style>
+
+
+<h2 class="system-title">
+🎓 Classroom & Timetable Management System
+</h2>
+
+<p class="dashboard-sub">
+Admin Control Panel
+</p>
+
+
+<div class="row">
+
+<div class="col-md-4">
+
+<div class="stat-card">
+
+<div class="stat-title">
+Total Classrooms
+</div>
+
+<div class="stat-number">
+{{ total_classrooms }}
+</div>
+
+</div>
+
+</div>
+
+
+<div class="col-md-4">
+
+<div class="stat-card">
+
+<div class="stat-title">
+Total Subjects
+</div>
+
+<div class="stat-number">
+{{ total_subjects }}
+</div>
+
+</div>
+
+</div>
+
+
+<div class="col-md-4">
+
+<div class="stat-card">
+
+<div class="stat-title">
+Total Timeslots
+</div>
+
+<div class="stat-number">
+{{ total_timeslots }}
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ===== ACADEMIC SERVICES ===== -->
+
+<div class="service-box">
+
+<h4 class="service-title">
+📚 Academic Services
+</h4>
+
+<div class="service-grid">
+
+<a href="{{ url_for('add_classroom') }}" class="service-card">
+<div class="service-icon">🏫</div>
+<div class="service-text">Add Classroom</div>
+</a>
+
+<a href="{{ url_for('add_subject') }}" class="service-card">
+<div class="service-icon">📚</div>
+<div class="service-text">Add Subject</div>
+</a>
+
+<a href="{{ url_for('add_timeslot') }}" class="service-card">
+<div class="service-icon">⏰</div>
+<div class="service-text">Add Timeslot</div>
+</a>
+
+<a href="{{ url_for('view_classrooms') }}" class="service-card">
+<div class="service-icon">🏢</div>
+<div class="service-text">View Classrooms</div>
+</a>
+
+<a href="{{ url_for('view_subjects') }}" class="service-card">
+<div class="service-icon">📖</div>
+<div class="service-text">View Subjects</div>
+</a>
+
+<a href="{{ url_for('view_timeslots') }}" class="service-card">
+<div class="service-icon">🗓</div>
+<div class="service-text">View Timeslots</div>
+</a>
+
+</div>
+
+</div>
+
+
+<!-- ===== GENERATE TIMETABLE ===== -->
+
+<div class="timetable-box">
+
+<h4>
+Generate Semester Timetable
+</h4>
+
+<form action="{{ url_for('generate_timetable') }}" method="POST">
+
+<select name="semester" class="form-control" required>
+
+<option value="">Select Semester</option>
+<option value="Sem I">Sem I</option>
+<option value="Sem II">Sem II</option>
+<option value="Sem III">Sem III</option>
+<option value="Sem IV">Sem IV</option>
+<option value="Sem V">Sem V</option>
+<option value="Sem VI">Sem VI</option>
+
+</select>
+
+<button type="submit" class="generate-btn">
+Generate Timetable
+</button>
+
+</form>
+
+<a href="{{ url_for('combined_timetable') }}">
+<button class="view-btn">
+View Combined Timetable
+</button>
+</a>
+
+</div>
+
+{% endblock %}

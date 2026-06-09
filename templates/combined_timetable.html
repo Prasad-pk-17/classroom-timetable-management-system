@@ -1,0 +1,186 @@
+{% extends "report_base.html" %}
+{% block content %}
+
+<style>
+
+/* PAGE */
+
+@page{
+size:A4 landscape;
+margin:8mm;
+}
+
+/* CONTAINER */
+
+.container{
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    font-family:Arial, sans-serif;
+}
+
+/* HEADER */
+
+.official-header{
+    text-align:center;
+    margin-bottom:8px;
+}
+
+.official-header img{
+    width:70px;
+}
+
+.marathi-text{
+    font-size:16px;
+    font-weight:bold;
+    margin:2px;
+}
+
+.english-title{
+    font-family:"Times New Roman";
+    font-size:20px;
+    font-weight:bold;
+    margin:2px;
+}
+
+/* TITLE */
+
+h2{
+    text-align:center;
+    font-size:20px;
+    margin:10px 0;
+    color:#0b3d91;
+}
+
+/* TABLE */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+}
+
+th,td{
+    border:1px solid #333;
+    padding:6px;
+    font-size:13px;
+    text-align:center;
+}
+
+th{
+    background:#f2f2f2;
+}
+
+.timeslot{
+    font-weight:bold;
+    width:140px;
+    background:#f7f7f7;
+}
+
+/* SUBJECT BLOCK */
+
+.subject-block{
+    margin-bottom:4px;
+}
+
+.subject{
+    font-weight:bold;
+    color:#0b3d91;
+}
+
+.teacher{
+    font-size:12px;
+}
+
+.room{
+    font-size:12px;
+}
+
+/* PRINT BUTTON */
+
+.print-btn{
+    text-align:center;
+    margin-top:15px;
+}
+
+button{
+    padding:8px 16px;
+    background:#0b3d91;
+    color:white;
+    border:none;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+@media print{
+.print-btn{
+display:none;
+}
+}
+
+</style>
+
+<div class="container">
+
+
+<div class="official-header">
+
+    <img src="{{ url_for('static', filename='images/clg_logo2.png') }}">
+
+    <div class="marathi-text">
+    श्री स्वामी विवेकानंद शिक्षण संस्था, कोल्हापूर
+    </div>
+
+    <div class="english-title">
+    VIVEKANAND COLLEGE, KOLHAPUR (EMPOWERED AUTONOMOUS)
+    </div>
+
+</div>
+
+<h2>Department Combined Timetable</h2>
+
+<table>
+
+    <tr>
+        <th>TIME</th>
+        <th>MONDAY</th>
+        <th>TUESDAY</th>
+        <th>WEDNESDAY</th>
+        <th>THURSDAY</th>
+        <th>FRIDAY</th>
+        <th>SATURDAY</th>
+    </tr>
+
+    {% set headers = [
+    "11:30 AM - 12:30 PM",
+    "12:30 PM - 1:30 PM",
+    "2:30 PM - 3:30 PM",
+    "3:30 PM - 4:30 PM"
+    ] %}
+
+    {% for header in headers %}
+
+    <tr>
+
+        <td class="timeslot">{{ header }}</td>
+
+        {% for day in days %}
+        <td>
+            {{ timetable[day][header] | safe }}
+        </td>
+        {% endfor %}
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+<div class="print-btn">
+    <button onclick="window.print()">Print Timetable</button>
+</div>
+
+
+</div>
+
+{% endblock %}

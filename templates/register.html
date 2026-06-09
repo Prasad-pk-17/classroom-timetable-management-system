@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Register | Smart Classroom</title>
+
+<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+<style>
+
+/* ===== BACKGROUND ===== */
+
+body{
+background: url("{{ url_for('static', filename='images/image.png') }}") no-repeat center center fixed;
+background-size: cover;
+font-family: Arial, sans-serif;
+}
+
+/* Overlay */
+
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background: rgba(0,0,0,0.45);
+z-index:-1;
+}
+
+/* ===== CENTER CONTAINER ===== */
+
+.auth-container{
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+/* ===== REGISTER CARD ===== */
+
+.auth-card{
+background: rgba(255,255,255,0.92);
+backdrop-filter: blur(10px);
+padding:40px;
+border-radius:15px;
+width:100%;
+max-width:500px;
+box-shadow:0 20px 40px rgba(0,0,0,0.35);
+transition:0.3s;
+}
+
+.auth-card:hover{
+transform: translateY(-5px);
+}
+
+/* ===== TITLE ===== */
+
+.auth-title{
+font-size:32px;
+font-weight:700;
+color:#1f4e8c;
+text-align:center;
+margin-bottom:20px;
+}
+
+/* ===== INPUT ===== */
+
+.form-control{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:8px;
+margin-bottom:15px;
+font-size:14px;
+}
+
+/* ===== BUTTON ===== */
+
+.btn-primary{
+background: linear-gradient(135deg,#1f6feb,#174ea6);
+color:white;
+border:none;
+padding:12px;
+border-radius:8px;
+font-weight:bold;
+width:100%;
+transition:0.3s;
+}
+
+.btn-primary:hover{
+transform:scale(1.05);
+box-shadow:0 8px 20px rgba(0,0,0,0.35);
+}
+
+/* ===== LINKS ===== */
+
+.login-link{
+text-align:center;
+margin-top:15px;
+}
+
+.login-link a{
+text-decoration:none;
+color:#1f4e8c;
+font-weight:500;
+}
+
+.login-link a:hover{
+text-decoration:underline;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="auth-container">
+
+<div class="auth-card">
+
+<div class="text-center mb-3">
+<div style="font-size:45px;">📝</div>
+<h3 class="auth-title">Admin Register</h3>
+</div>
+
+{% if message %}
+<div class="alert alert-info text-center">
+{{ message }}
+</div>
+{% endif %}
+
+<form method="POST" action="{{ url_for('register') }}">
+
+<label class="form-label">Username</label>
+<input type="text" name="username" class="form-control" placeholder="Enter username" required>
+
+<label class="form-label">Email</label>
+<input type="email" name="email" class="form-control" placeholder="Enter email" required>
+
+<label class="form-label">Password</label>
+<input type="password" name="password" class="form-control" placeholder="Enter password" required>
+
+<button type="submit" class="btn-primary">
+Register
+</button>
+
+</form>
+
+<div class="login-link">
+<a href="{{ url_for('login') }}">
+Already have an account? Login
+</a>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

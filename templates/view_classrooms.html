@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.page-wrapper {
+    padding: 40px 0;
+}
+
+.card-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.card-custom {
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.card-title {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+    color: #0b3d91;
+}
+
+.table-custom {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.table-custom th {
+    background: #0b3d91;
+    color: white;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.table-custom td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.table-custom tr:hover {
+    background: #f1f5f9;
+}
+
+.btn-primary {
+    background: #0b3d91;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin: 6px;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background: #082c6c;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin: 6px;
+    display: inline-block;
+}
+
+.btn-secondary {
+    background: #64748b;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 12px;
+    display: inline-block;
+}
+</style>
+
+<div class="page-wrapper">
+    <div class="card-container">
+
+        <div class="card-custom">
+
+            <h2 class="card-title">🏫 All Classrooms</h2>
+
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Classroom Name</th>
+                        <th>Capacity</th>
+                        <th>Department</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for c in classrooms %}
+                    <tr>
+                        <td>{{ c[0] }}</td>
+                        <td>{{ c[1] }}</td>
+                        <td>{{ c[2] }}</td>
+                        <td>{{ c[3] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div style="text-align:center; margin-top:25px;">
+
+                <a href="{{ url_for('edit_classroom') }}"
+                   class="btn-primary">
+                    ✏️ Edit All Classrooms
+                </a>
+
+                <a href="{{ url_for('delete_classrooms') }}"
+                   class="btn-danger">
+                    🗑️ Delete Classrooms
+                </a>
+
+                <br>
+
+                <a href="{{ url_for('dashboard') }}"
+                   class="btn-secondary">
+                    ⬅ Back to Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

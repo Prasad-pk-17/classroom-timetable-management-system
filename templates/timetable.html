@@ -1,0 +1,213 @@
+{% extends "report_base.html" %}
+{% block content %}
+
+<style>
+
+/* ===== PAGE SETUP ===== */
+
+@page{
+    size: A4 landscape;
+    margin:10mm;
+}
+
+/* ===== CONTAINER ===== */
+
+.container{
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    font-family:Arial, sans-serif;
+}
+
+/* ===== HEADER ===== */
+
+.official-header{
+    text-align:center;
+    margin-bottom:10px;
+    color:#000;
+}
+
+.official-header img{
+    width:80px;
+    margin-bottom:4px;
+}
+
+/* Marathi Title */
+
+.marathi-text{
+    font-size:18px;
+    font-weight:bold;
+    margin:2px 0;
+}
+
+/* College Name */
+
+.english-title{
+    font-family:"Times New Roman", Times, serif;
+    font-size:22px;
+    font-weight:bold;
+    margin:2px 0;
+}
+
+/* Department */
+
+.department{
+    text-align:center;
+    font-size:16px;
+    font-weight:600;
+    margin-top:5px;
+}
+
+/* Semester Title */
+
+h2{
+    text-align:center;
+    margin:10px 0 15px 0;
+    font-size:22px;
+}
+
+/* ===== TABLE ===== */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+    page-break-inside:avoid;
+}
+
+th, td{
+    border:1px solid #333;
+    padding:6px;
+    text-align:center;
+    font-size:13px;
+    word-wrap:break-word;
+}
+
+th{
+    background:#f2f2f2;
+}
+
+.timeslot{
+    font-weight:bold;
+    width:140px;
+    background:#f5f5f5;
+}
+
+/* ===== PRINT BUTTON ===== */
+
+.print-btn{
+    text-align:center;
+    margin-top:20px;
+}
+
+button{
+    padding:8px 18px;
+    background:#0b3d91;
+    color:white;
+    border:none;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#082c6c;
+}
+
+/* ===== PRINT SETTINGS ===== */
+
+@media print{
+
+    body{
+        margin:0;
+        padding:0;
+        background:white;
+    }
+
+    .print-btn{
+        display:none;
+    }
+
+}
+
+</style>
+
+<div class="container">
+
+
+<div class="official-header">
+
+    <img src="{{ url_for('static', filename='images/clg_logo2.png') }}">
+
+    <div class="marathi-text">
+        श्री स्वामी विवेकानंद शिक्षण संस्था, कोल्हापूर
+    </div>
+
+    <div class="english-title">
+        VIVEKANAND COLLEGE, KOLHAPUR (EMPOWERED AUTONOMOUS)
+    </div>
+
+</div>
+
+<div class="department">
+    Department of Computer Science
+</div>
+
+<h2>{{ semester }} Timetable</h2>
+
+<table>
+
+    <thead>
+        <tr>
+            <th>TIME</th>
+            <th>MONDAY</th>
+            <th>TUESDAY</th>
+            <th>WEDNESDAY</th>
+            <th>THURSDAY</th>
+            <th>FRIDAY</th>
+            <th>SATURDAY</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% set headers = [
+    "11:30 AM - 12:30 PM",
+    "12:30 PM - 1:30 PM",
+    "2:30 PM - 3:30 PM",
+    "3:30 PM - 4:30 PM"
+    ] %}
+
+    {% for header in headers %}
+
+    <tr>
+
+        <td class="timeslot">{{ header }}</td>
+
+        <td>{{ timetable["Monday"][header] | safe }}</td>
+
+        <td>{{ timetable["Tuesday"][header] | safe }}</td>
+
+        <td>{{ timetable["Wednesday"][header] | safe }}</td>
+
+        <td>{{ timetable["Thursday"][header] | safe }}</td>
+
+        <td>{{ timetable["Friday"][header] | safe }}</td>
+
+        <td>{{ timetable["Saturday"][header] | safe }}</td>
+
+    </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+<div class="print-btn">
+    <button onclick="window.print()">🖨 Print Timetable</button>
+</div>
+
+
+</div>
+
+{% endblock %}
